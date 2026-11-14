@@ -55,3 +55,10 @@ const links = parse(raw ?? '');
 
 Joining is safe because the grammar treats a comma-separated list in one header as
 equivalent to several headers carrying the same field name.
+
+## Design notes
+
+The window stores values eagerly rather than keeping running aggregates. Running
+sums drift with floating point over long streams, and recomputing from a small
+buffer is cheap enough that the drift is not worth the speed.
+
